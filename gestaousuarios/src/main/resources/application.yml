@@ -1,0 +1,37 @@
+spring:
+  profiles:
+    active: ${PROFILE:prod}
+  jackson:
+    time-zone: America/Sao_Paulo
+  application:
+    name: "@project.name@"
+    version: "@project.version@"
+    description: "@project.description@"
+    groupId: "@project.groupId@"
+    artifactId: "@project.artifactId@"
+    java: "@java.version@"
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    url: jdbc:postgresql://${DATASOURCE_IP}:${DATASOURCE_PORT}/${DATASOURCE_BANCO}
+    username: ${DATASOURCE_USER}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+logging:
+  file:
+    name: "logs/@project.artifactId@.log"
+  level:
+    root: INFO
+
+springdoc:
+  api-docs:
+    path: /swagger-ui/api-docs
