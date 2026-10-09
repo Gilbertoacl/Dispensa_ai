@@ -19,12 +19,12 @@ public class UsuarioController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<Usuario> getUsuarioLogato(@RequestBody UUID id) {
+    public ResponseEntity<UsuarioResponse> getUsuarioLogato(@RequestBody UUID id) {
         return ResponseEntity.ok(usuarioService.buscarUsuarioPorId(id));
     }
 
     @PostMapping("/usuarios")
-    public ResponseEntity<Usuario> criarUsuario(@Valid @RequestBody UsuarioRequest request) {
+    public ResponseEntity<UsuarioResponse> criarUsuario(@Valid @RequestBody UsuarioRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.criarUsuario(request));
     }
 }
