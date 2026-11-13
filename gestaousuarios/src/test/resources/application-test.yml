@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:gestaousuarios;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+  # Flyway desabilitado no perfil de teste: o schema é criado pelo Hibernate (create-drop)
+  # sobre H2. As migrações Flyway (PostgreSQL) são validadas nos testes de integração com Testcontainers.
+  flyway:
+    enabled: false
+
+  sql:
+    init:
+      mode: never
+
+# Segredo JWT de teste (>=32 bytes), isolado do ambiente de produção.
+dispensaai:
+  security:
+    jwt:
+      secret: test-only-secret-0123456789-0123456789-abcdef
+      access-expiration: 900
+    ratelimit:
+      max-requests: 10000

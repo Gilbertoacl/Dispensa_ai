@@ -1,0 +1,26 @@
+server:
+  servlet:
+    context-path: /gestao-usuarios-api
+  port: 8081
+
+spring:
+  ci:
+    ambiente: dev
+  devtools:
+    livereload:
+      enabled: true
+    add-properties: true
+  main:
+    banner-mode: console
+  jpa:
+    show-sql: true
+  hateoas:
+    use-hal-as-default-json-media-type: false
+
+logging:
+  level:
+    root: INFO
+    web: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    com.gestaousuarios: DEBUG

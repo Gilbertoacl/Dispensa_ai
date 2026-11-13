@@ -1,0 +1,66 @@
+spring:
+  profiles:
+    active: ${PROFILE:prod}
+  jackson:
+    time-zone: America/Sao_Paulo
+  application:
+    name: "@project.name@"
+    version: "@project.version@"
+    description: "@project.description@"
+    groupId: "@project.groupId@"
+    artifactId: "@project.artifactId@"
+    java: "@java.version@"
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    enabled: true
+
+  datasource:
+    url: jdbc:postgresql://${DATASOURCE_IP}:${DATASOURCE_PORT}/${DATASOURCE_BANCO}
+    username: ${DATASOURCE_USER}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+logging:
+  file:
+    name: "logs/@project.artifactId@.log"
+  level:
+    root: INFO
+
+springdoc:
+  api-docs:
+    path: /swagger-ui/api-docs
+
+dispensaai:
+  security:
+    jwt:
+      # Segredo HMAC para assinatura/validação do JWT emitido pelo próprio serviço.
+      # Fornecido via variável de ambiente; nunca versionar o valor em texto plano.
+      # Em produção, defina JWT_SECRET (>=32 bytes). O default abaixo é apenas para dev/test local.
+      secret: ${JWT_SECRET:dev-only-secret-change-me-0123456789abcdef}
+      access-expiration: 900
+    refresh:
+      expiration: 7d
+    lockout:
+      max-attempts: 5
+      window: 15m
+      duration: 15m
+    ratelimit:
+      max-requests: 20
+      window: 1m
+  # Admin inicial: criado no boot somente se as três variáveis estiverem definidas (sem default).
+  admin-inicial:
+    email: ${ADMIN_EMAIL:}
+    senha: ${ADMIN_SENHA:}
+    nome: ${ADMIN_NOME:}
+  eventos:
+    usuario-criado:
+      enabled: false
