@@ -13,6 +13,20 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
 
+  # Flyway desabilitado no perfil de teste: o schema é criado pelo Hibernate (create-drop)
+  # sobre H2. As migrações Flyway (PostgreSQL) são validadas nos testes de integração com Testcontainers.
+  flyway:
+    enabled: false
+
   sql:
     init:
       mode: never
+
+# Segredo JWT de teste (>=32 bytes), isolado do ambiente de produção.
+dispensaai:
+  security:
+    jwt:
+      secret: test-only-secret-0123456789-0123456789-abcdef
+      access-expiration: 900
+    ratelimit:
+      max-requests: 10000
