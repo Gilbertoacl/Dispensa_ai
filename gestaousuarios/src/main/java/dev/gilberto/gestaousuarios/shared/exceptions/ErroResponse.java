@@ -18,4 +18,8 @@ public record ErroResponse(
     public static ErroResponse of(HttpStatus status, String msg, String path) {
         return new ErroResponse(LocalDateTime.now(), status.value(), status.getReasonPhrase(), msg, path, null );
     }
+
+    public static ErroResponse of(HttpStatus status, String msg, String path, List<CampoErro> camposComErro) {
+        return new ErroResponse(LocalDateTime.now(), status.value(), status.getReasonPhrase(), msg, path, camposComErro);
+    }
 }
