@@ -1,0 +1,10 @@
+# Documentação de projeto e specs (não versionadas neste repositório)
+Specifications/
+.kiro/
+
+# Configuração local de editor
+.vscode/
+
+# Logs
+logs/
+*.log
